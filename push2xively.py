@@ -10,7 +10,7 @@ import serial # Load pyserial, for the jeelink
 import xively # Load the xively library
 import time # So we can wait
 
-# Define an API key and feed ID
+# Insert your API key and feed ID from Xively in the line below
 APIkey = "YOUR_API_KEY"
 feedID = FEED_ID_OF_DEVICE # an integer
 
@@ -28,7 +28,7 @@ def main():
         # Push those streams
         updatesensors(feed,streams)
         # Take a short nap, don't want to overwhelm anyone
-        time.sleep(1)
+        time.sleep(30)
 
 def xively_setup(API_key,feed_ID):
     """ Takes an API key, found on your device's website, returns a feed object """
@@ -43,7 +43,7 @@ def readsensors():
     Make sure it isn't the first line ("Reading sensors...")
     """
     data = ser.readline().split()
-    return [datum/100.00 for datum in map(int,data)] if len(data) == 3 else None
+    return [round(datum/100.00, -2) for datum in map(int,data)] if len(data) == 3 else None
 
 def makestreams(feed,streams):
     stream_objects = []
