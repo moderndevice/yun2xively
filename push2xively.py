@@ -43,7 +43,7 @@ def readsensors():
     Make sure it isn't the first line ("Reading sensors...")
     """
     data = ser.readline().split()
-    return [round(datum/100.00, -2) for datum in map(int,data)] if len(data) == 3 else None
+    return [round(datum/100.00, 2) for datum in map(int,data)] if len(data) == 3 else None
 
 def makestreams(feed,streams):
     stream_objects = []
